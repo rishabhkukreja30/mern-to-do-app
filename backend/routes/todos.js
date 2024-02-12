@@ -2,7 +2,7 @@ const { Router } = require("express");
 const router = Router();
 const { todoMiddleware } = require("../middlewares/todoMiddleware");
 const { Todos } = require("../db/schema");
-const { todo } = require("../types");
+const { createTodo } = require("../types");
 
 router.get("/", todoMiddleware, async (req, res) => {
   const todos = await Todos.find({});
@@ -56,7 +56,7 @@ router.put("/:id", todoMiddleware, async (req, res) => {
 
     res.json(updatedItem);
   } catch (error) {
-    console.error("This todo item doesn't exist");
+    res.json({ error });
   }
 });
 

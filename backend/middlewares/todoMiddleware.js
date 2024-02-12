@@ -3,6 +3,9 @@ const { JWT_SECRET } = require("../config");
 
 function todoMiddleware(req, res, next) {
   const token = req.headers.authorization;
+  if (!token) {
+    res.json({ msg: "please provide valid token" });
+  }
   const words = token.split(" ");
   const jwtToken = words[1];
 
@@ -20,4 +23,6 @@ function todoMiddleware(req, res, next) {
   }
 }
 
-module.exports = todoMiddleware;
+module.exports = {
+  todoMiddleware,
+};
